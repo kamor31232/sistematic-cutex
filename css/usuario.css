@@ -1,0 +1,54 @@
+.general-aside {
+  background: black;
+  height: 100vh;
+}
+
+.general-aside img {
+  height: 70px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.general-aside .link {
+  background: white;
+  height: 40px;
+  border-radius: 10px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  color: black;
+}
+
+.general-aside h3 {
+  color: white;
+}
+
+.general-aside p {
+  color: white;
+  margin: 0;
+}
+
+.section-general {
+  height: 100vh;
+  padding-left: 0 !important;
+}
+
+.section-general .nav-general {
+  background: black;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.color-white {
+  color: white;
+}
+
+.notification-nav {
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
