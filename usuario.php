@@ -59,17 +59,17 @@
                 <?php
                 if ($row['status'] === 'active') {
                 ?>
-                  <button type="button" class="btn btn-success">Activo</button>
+                  <a href="./controller/user/update-status.php?id=<?php echo $row['id'] ?>&status=inactive" type="button" class="btn btn-success">Activo</a>
                 <?php
                 } else {
                 ?>
-                  <button type="button" class="btn btn-danger">Inactivo</button>
+                  <a href="./controller/user/update-status.php?id=<?php echo $row['id'] ?>&status=active" type="button" class="btn btn-danger">Inactivo</a>
                 <?php
                 }
                 ?>
               </td>
 
-              <td><button type="button" class="btn btn-warning">Editar</button></td>
+              <td><a href="editar-usuario.php?id=<?php echo $row['id'] ?>" type="button" class="btn btn-warning">Editar</a></td>
             </tr>
 
           <?php } ?>
