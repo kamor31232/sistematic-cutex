@@ -1,6 +1,8 @@
 <?php include("./includes/header.php") ?>
+<!-- base de datos incluida en la interfaz usuario-->
 <?php include("./database/db.php") ?>
 
+<!-- Código php para paginación y el boton buscador -->
 <?php
 $limit = 10;
 $offset = 0;
@@ -13,7 +15,7 @@ if (isset($_GET['pages'])) {
   $offset = $_GET['pages'];
 }
 ?>
-
+<!-- Inicio del contenido de la interfaz usuario -->
 <div class="row">
   <?php include("./includes/aside.php") ?>
   <section class="col-9 section-general">
@@ -26,6 +28,7 @@ if (isset($_GET['pages'])) {
           Crear usuario
         </a>
       </div>
+      <!-- mensaje de alerta que aparece abajo del buscador-->
       <?php if (isset($_SESSION['message'])) { ?>
         <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert">
           <?= $_SESSION['message'] ?>
@@ -35,13 +38,13 @@ if (isset($_GET['pages'])) {
         </div>
       <?php session_unset();
       } ?>
+      <!-- Buscador de usuario  -->
       <div class="input-group col-6 mb-4">
-        <!-- Buscador -->
         <form>
           <input type="text" class="form-control" name="search" value="<?php echo $filter ?>" placeholder="Nombre ó documento" aria-label="Text input with dropdown button">
         </form>
-
       </div>
+      <!-- Tabla de contendo de usuarios del sistema  -->
       <table class="table">
         <thead>
           <tr>
@@ -55,6 +58,7 @@ if (isset($_GET['pages'])) {
           </tr>
         </thead>
         <tbody>
+          <!-- Codigo php y consultas sql para traerse los datos usuarios de la base de datos  -->
           <?php
 
           $offsetPage = $limit * $offset;

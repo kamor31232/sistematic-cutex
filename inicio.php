@@ -1,3 +1,5 @@
+<?php include("./database/db.php") ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,28 +19,41 @@
           <img src="./img/logo.jpg" style="height: 70px; width: 100%; object-fit: contain" alt="" />
           <br />
           <br />
+          <!-- mensaje de alerta que aparece abajo del buscador-->
+          <?php if (isset($_SESSION['message'])) { ?>
+            <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert">
+              <?= $_SESSION['message'] ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php session_unset();
+          } ?>
           <div class="card" style="width: 500px">
             <div class="card-body">
-              <form action="usuario.php" class="px-4 py-3" style="width: 100%">
+              <form action="./controller/login/sesion.php" method="POST" class="px-4 py-3" style="width: 100%">
                 <h1 class="text-center">Iniciar sesión</h1>
                 <div class="form-group mt-4">
                   <label for="exampleFormControlSelect1">Rol</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option>Administrador</option>
-                    <option>Vendedor</option>
-                    <option>Auxiliar de bodega</option>
+                  <select class="form-control" name="rol">
+                    <?php
+                    $query = "SELECT * FROM rol";
+                    $result_document = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_array($result_document)) { ?>
+                      <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+                    <?php } ?>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="exampleDropdownFormEmail1">Correo electronico</label>
-                  <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@ejemplo.com" />
+                  <input type="email" class="form-control" name="email" placeholder="email@ejemplo.com" />
                 </div>
                 <div class="form-group">
                   <label for="exampleDropdownFormPassword1">Contraseña</label>
-                  <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Escriba su contraseña" />
+                  <input type="password" class="form-control" name="password" placeholder="Escriba su contraseña" />
                 </div>
                 <div class="flex justify-content-center">
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" name="login" class="btn btn-primary">
                     Ingresar
                   </button>
                 </div>
@@ -47,7 +62,7 @@
           </div>
 
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-center text-primary" style="text-decoration: underline" href="recuperar.html">Recuperar contraseña</a>
+          <a class="dropdown-item text-center text-primary" style="text-decoration: underline" href="recuperar.php">Recuperar contraseña</a>
         </div>
       </div>
       <div class="col h-auto w-100" style="
