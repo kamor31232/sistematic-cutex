@@ -1,18 +1,25 @@
 <?php include("./includes/header.php") ?>
 
+
 <div class="row">
     <?php include("./includes/aside.php") ?>
     <section class="col-9 section-general">
         <?php include("./includes/nav.php") ?>
         <div class="container">
             <!-- Boton Crear Usuario-->
-            <div class="d-flex justify-content-end my-4">
-                <!-- Rediccionamiento del boton-->
-                <a href="crear-proveedor.php" class="btn btn-success">
-                    Crear Proveedor
-                </a>
-            </div>
-            <div class="input-group col-6 mb-4">
+            <!-- Validar el rol del usuario para crear proveedor -->
+            <?php
+            if ($rolSession === '1') { ?>
+                <div class="d-flex justify-content-end my-4">
+                    <!-- Rediccionamiento del boton-->
+                    <a href="crear-proveedor.php" class="btn btn-success">
+                        Crear Proveedor
+                    </a>
+                </div>
+            <?php }
+            ?>
+
+            <div class="input-group col-6 mb-4 mt-4">
                 <input type="text" class="form-control" placeholder="Nombre, documento ó NIT" aria-label="Text input with dropdown button">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button">Buscar</button>
@@ -26,7 +33,13 @@
                         <th scope="col">Documento ó NIT</th>
                         <th scope="col">Correo electrónico</th>
                         <th scope="col">Referencia producto</th>
-                        <th scope="col"></th>
+                        <!-- Validar el rol del usuario para editar proveedor -->
+                        <?php
+                        if ($rolSession === '1') { ?>
+                            <th scope="col"></th>
+                        <?php }
+                        ?>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -36,15 +49,13 @@
                         <td>1085826</td>
                         <td>billeterasm@gmail.com</td>
                         <td>890A</td>
-                        <td><button type="button" class="btn btn-warning">Editar</button></td>
-                    </tr>
-                    <tr>
-                        <td>Pepito</td>
-                        <td>Perez</td>
-                        <td>1085812556</td>
-                        <td>p@gmail.com</td>
-                        <td>1235B</td>
-                        <td><button type="button" class="btn btn-warning">Editar</button></td>
+                        <!-- Validar el rol del usuario para editar proveedor -->
+                        <?php
+                        if ($rolSession === '1') { ?>
+                            <td><button type="button" class="btn btn-warning">Editar</button></td>
+                        <?php }
+                        ?>
+
                     </tr>
                 </tbody>
             </table>

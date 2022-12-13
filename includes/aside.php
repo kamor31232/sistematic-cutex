@@ -1,9 +1,10 @@
 <?php
 
-if (isset($_SESSION['userId'])) {
+if (isset($_SESSION['userId']) && isset($_SESSION['rolId'])) {
   $id = $_SESSION['userId'];
+  $rolSession = $_SESSION['rolId'];
 
-  $query = "SELECT u.id as id, r.id as rol, u.names as names FROM user as u INNER JOIN rol as r ON u.rol_id = r.id
+  $query = "SELECT u.id as id, r.name as rol, u.names as names FROM user as u INNER JOIN rol as r ON u.rol_id = r.id
    WHERE u.id = '$id'";
 
   $result = mysqli_query($conn, $query);
@@ -11,7 +12,10 @@ if (isset($_SESSION['userId'])) {
   if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_array($result);
     $names = $row['names'];
+    $rol = $row['rol'];
   }
+} else {
+  header("Location: ./inicio.php");
 }
 
 ?>
@@ -21,36 +25,30 @@ if (isset($_SESSION['userId'])) {
     <img src="./img/logo.jpg" alt="" />
     <div class="d-flex flex-column justify-content-center align-items-center mt-3">
       <h3><?php echo $names ?></h3>
-      <p>Administrador</p>
+      <p><?php echo $rol ?></p>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+      <!-- Validar el rol del usuario -->
       <a class="link" href="usuario.php">Usuario</a>
       <a class="link" href="producto.php">Producto</a>
-      <a class="link" href="factura.php">Factura</a>
-      <a class="link" href="proveedor.php">Proveedor</a>
-      <a class="link" href="reportes.php">Reportes</a>
-
+      <!-- Validar el rol del usuario para poder ver facturas -->
       <?php
-
-      $_SESSION['userId'];
-
-      $_SESSION['rolId']
-
+      if ($rolSession !== '2') { ?>
+        <a class="link" href="factura.php">Factura</a>
+      <?php }
       ?>
-
-      <?php if (isset($_SESSION['userId'])) { ?>
-        <div style="color: white; font-size: 20px;">
-          <?= $_SESSION['userId']
-          ?>
-
-        </div>
-        <div style="color: white; font-size: 20px;">
-          <?=
-          $_SESSION['rolId'] ?>
-
-        </div>
+      <!-- Validar el rol del usuario para poder ver proveedores -->
       <?php
-      } ?>
+      if ($rolSession !== '3') { ?>
+        <a class="link" href="proveedor.php">Proveedor</a>
+      <?php }
+      ?>
+      <!-- Validar el rol del usuario para poder ver reportes -->
+      <?php
+      if ($rolSession === '1') { ?>
+        <a class="link" href="reportes.php">Reportes</a>
+      <?php }
+      ?>
     </div>
   </div>
 </aside>

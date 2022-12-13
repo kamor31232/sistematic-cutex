@@ -1,4 +1,6 @@
 <?php include("./includes/header.php") ?>
+<!-- base de datos incluida en la interfaz usuario-->
+
 
 <div class="row">
     <?php include("./includes/aside.php") ?>

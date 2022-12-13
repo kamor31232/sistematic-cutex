@@ -1,5 +1,5 @@
 <?php include("./includes/header.php") ?>
-<?php include("./database/db.php") ?>
+
 
 <div class="row">
   <?php include("./includes/aside.php") ?>

@@ -1,6 +1,6 @@
 <?php include("./includes/header.php") ?>
 <!-- base de datos incluida en la interfaz usuario-->
-<?php include("./database/db.php") ?>
+
 
 <!-- Código php para paginación y el boton buscador -->
 <?php
@@ -22,12 +22,18 @@ if (isset($_GET['pages'])) {
     <?php include("./includes/nav.php") ?>
     <div class="container">
       <!-- Boton Crear Usuario-->
-      <div class="d-flex justify-content-end my-4">
-        <!-- Rediccionamiento del boton-->
-        <a href="crear-usuario.php" class="btn btn-success">
-          Crear usuario
-        </a>
-      </div>
+      <!-- Validar el rol del usuario para crear usuario -->
+      <?php
+      if ($rolSession === '1') { ?>
+        <div class="d-flex justify-content-end my-4">
+          <!-- Rediccionamiento del boton-->
+          <a href="crear-usuario.php" class="btn btn-success">
+            Crear usuario
+          </a>
+        </div>
+      <?php }
+      ?>
+
       <!-- mensaje de alerta que aparece abajo del buscador-->
       <?php if (isset($_SESSION['message'])) { ?>
         <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert">
@@ -39,7 +45,7 @@ if (isset($_GET['pages'])) {
       <?php session_unset();
       } ?>
       <!-- Buscador de usuario  -->
-      <div class="input-group col-6 mb-4">
+      <div class="input-group col-6 mb-4 mt-4">
         <form>
           <input type="text" class="form-control" name="search" value="<?php echo $filter ?>" placeholder="Nombre ó documento" aria-label="Text input with dropdown button">
         </form>
@@ -53,8 +59,14 @@ if (isset($_GET['pages'])) {
             <th scope="col">Rol</th>
             <th scope="col">Documento</th>
             <th scope="col">Correo electrónico</th>
-            <th scope="col">Estado</th>
-            <th scope="col"></th>
+            <!-- Validar el rol del usuario para no poder editar o cambiar estado -->
+            <?php
+            if ($rolSession === '1') { ?>
+              <th scope="col">Estado</th>
+              <th scope="col"></th>
+            <?php }
+            ?>
+
           </tr>
         </thead>
         <tbody>
@@ -76,21 +88,27 @@ if (isset($_GET['pages'])) {
               <td><?php echo $row['rol'] ?></td>
               <td><?php echo $row['document'] ?></td>
               <td><?php echo $row['email'] ?></td>
-              <td>
-                <?php
-                if ($row['status'] === 'active') {
-                ?>
-                  <a href="./controller/user/update-status.php?id=<?php echo $row['id'] ?>&status=inactive" type="button" class="btn btn-success">Activo</a>
-                <?php
-                } else {
-                ?>
-                  <a href="./controller/user/update-status.php?id=<?php echo $row['id'] ?>&status=active" type="button" class="btn btn-danger">Inactivo</a>
-                <?php
-                }
-                ?>
-              </td>
 
-              <td><a href="editar-usuario.php?id=<?php echo $row['id'] ?>" type="button" class="btn btn-warning">Editar</a></td>
+              <!-- Validar el rol del usuario para no poder editar o cambiar estado -->
+              <?php
+              if ($rolSession === '1') { ?>
+                <td>
+                  <?php
+                  if ($row['status'] === 'active') {
+                  ?>
+                    <a href="./controller/user/update-status.php?id=<?php echo $row['id'] ?>&status=inactive" type="button" class="btn btn-success">Activo</a>
+                  <?php
+                  } else {
+                  ?>
+                    <a href="./controller/user/update-status.php?id=<?php echo $row['id'] ?>&status=active" type="button" class="btn btn-danger">Inactivo</a>
+                  <?php
+                  }
+                  ?>
+                </td>
+
+                <td><a href="editar-usuario.php?id=<?php echo $row['id'] ?>" type="button" class="btn btn-warning">Editar</a></td>
+              <?php }
+              ?>
             </tr>
 
           <?php } ?>

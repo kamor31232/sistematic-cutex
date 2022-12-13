@@ -1,5 +1,5 @@
 <?php include("./includes/header.php") ?>
-<?php include("./database/db.php") ?>
+
 
 <?php
 if (isset($_GET['id'])) {

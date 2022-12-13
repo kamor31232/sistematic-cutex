@@ -1,7 +1,7 @@
 <nav class="px-4 nav-general">
   <h4 id="navSection" class="color-white"></h4>
 
-  <form action="inicio.php">
+  <form action="./controller/login/logout.php">
     <button class="notification-nav">
       <i class="fa-regular fa-envelope"></i>
     </button>

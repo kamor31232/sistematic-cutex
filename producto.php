@@ -1,6 +1,6 @@
 <?php include("./includes/header.php") ?>
 <!-- base de datos incluida en la interfaz producto-->
-<?php include("./database/db.php") ?>
+
 
 <!-- Código php para paginación y el boton buscador -->
 <?php
